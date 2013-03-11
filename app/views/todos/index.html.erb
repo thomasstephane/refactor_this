@@ -6,8 +6,7 @@
     <% Todo.all.each do |todo| %>
       <% if todo.list_name == list %>
         <li>
-          <%= todo.title %>:
-          <%= todo.body %>
+          <%= link_to "#{todo.title}: #{todo.body}", todo %>
         </li>
       <% end %>
     <% end %>
