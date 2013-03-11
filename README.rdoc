@@ -1,0 +1,6 @@
+== as your app:
+
+- do you have the right schema and db structure?
+- are your views handling more than they should?
+- are you sending too many queries?
+- are you DRY?
