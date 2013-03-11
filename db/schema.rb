@@ -10,3 +10,13 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20130311190132) do
+
+  create_table "todos", :force => true do |t|
+    t.string "title"
+    t.string "body"
+    t.string "list_name"
+  end
+
+end

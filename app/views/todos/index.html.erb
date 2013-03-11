@@ -1,0 +1,18 @@
+<% todo_lists = Todo.all.map(&:list_name).uniq %>
+<%= link_to "new todo", new_todo_path %>
+<% todo_lists.each do |list| %>
+  <h2><%= list %></h2>
+  <ul>
+    <% Todo.all.each do |todo| %>
+      <% if todo.list_name == list %>
+        <li>
+          <%= todo.title %>:
+          <%= todo.body %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
