@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20130311200836) do
     t.string  "title"
     t.string  "body"
     t.string  "list_name"
+    t.integer "status",     :default => 0
     t.integer "todo_count"
   end
 

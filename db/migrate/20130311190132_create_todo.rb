@@ -4,6 +4,7 @@ class CreateTodo < ActiveRecord::Migration
       t.string :title
       t.string :body
       t.string :list_name
+      t.integer :status, :default => 0
     end
   end
 end
