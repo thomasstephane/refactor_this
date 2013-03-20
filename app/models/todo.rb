@@ -85,6 +85,34 @@ class Todo < ActiveRecord::Base
     def all_important
       self.where :status => 6
     end
+
+    def find_or_create_by_incomplete
+      self.create :status => 0
+    end
+
+    def find_or_create_by_complete
+      self.create :status => 1
+    end
+
+    def find_or_create_by_in_progress
+      self.create :status => 2
+    end
+
+    def find_or_create_by_moved
+      self.create :status => 3
+    end
+
+    def find_or_create_by_deleted
+      self.create :status => 4
+    end
+
+    def find_or_create_by_postponed
+      self.create :status => 5
+    end
+
+    def find_or_create_by_important
+      self.create :status => 6
+    end
   end
 
 end
