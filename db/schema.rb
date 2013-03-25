@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20130311200836) do
   create_table "todos", :force => true do |t|
     t.string  "title"
     t.string  "body"
-    t.string  "list_name"
+    t.string  "list_name",  :default => ""
     t.integer "status",     :default => 0
     t.integer "todo_count"
   end
