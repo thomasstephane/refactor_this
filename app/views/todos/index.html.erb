@@ -1,11 +1,16 @@
-<%= link_to "new todo", new_todo_path %>
-<% @todos.each do |list, todos| %>
-  <h2><%= list %></h2>
-  <ul>
-    <% todos.each do |todo| %>
-      <li>
-        <%= link_to todo, todo %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<%= link_to "new todo", new_todo_path, :class => 'new-todo' %>
+<div class="new-form"></div>
+<div class="tooltip"></div>
+<div class="todos">
+  <% @todos.each do |list, todos| %>
+    <h2><%= list %></h2>
+    <ul id="<%= list.gsub(' ', '-') %>">
+      <% todos.each do |todo| %>
+        <li>
+          <%= link_to todo, todo %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+</div>

@@ -1,6 +1,6 @@
 class TodosController < ApplicationController
   before_filter :load_todos
-
+  respond_to :json
   def index
     @todos = Todo.group_by_list_names
   end
@@ -15,7 +15,8 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new params[:todo]
-    @todo.save ? redirect_to(root_url) : render(:new)
+    @todo.save
+    respond_with @todo
   end
 
   def edit
