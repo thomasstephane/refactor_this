@@ -14,12 +14,9 @@ class TodosController < ApplicationController
   end
 
   def create
-    list_name = params[:todo].delete(:list_name)
-    list_name = list_name.downcase
-    list_name = list_name.gsub ' ', '-'
+    list_name = params[:todo].fetch(:list_name)
     @todo = Todo.new params[:todo]
     if @todo.save
-      @todo.update_attributes :list_name => list_name
       @todos = Todo.where :list_name => list_name
       @todos.each do |todo|
         todo.update_attributes :todo_count => @todos.count

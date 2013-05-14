@@ -2,6 +2,7 @@ class Todo < ActiveRecord::Base
   attr_accessible :title, :body, :list_name, :todo_count, :status
 
   
+  before_validation :normalize_list_name
 
   def incomplete?
     self.status == 0
@@ -115,6 +116,12 @@ class Todo < ActiveRecord::Base
     def create_by_important
       self.create :status => 6
     end
+  end
+
+  private
+
+  def normalize_list_name
+    self.list_name = self.list_name.parameterize
   end
 
 end
