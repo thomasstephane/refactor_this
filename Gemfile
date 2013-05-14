@@ -10,8 +10,12 @@ gem 'sqlite3'
 
 group :development, :test do
   gem 'rspec-rails'
+end
+
+group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 
