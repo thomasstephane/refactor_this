@@ -21,12 +21,12 @@ ActiveRecord::Schema.define(:version => 20130515205949) do
   end
 
   create_table "todos", :force => true do |t|
-    t.string   "title"
+    t.string   "title",                       :null => false
     t.string   "body"
     t.string   "list_name",  :default => ""
-    t.integer  "status",     :default => 0
+    t.integer  "status",     :default => 0,   :null => false
     t.integer  "todo_count"
-    t.string   "state"
+    t.string   "state",      :default => "f", :null => false
     t.datetime "deleted_at"
     t.boolean  "important"
   end
