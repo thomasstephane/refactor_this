@@ -1,8 +1,8 @@
 class Todo < ActiveRecord::Base
   attr_accessible :title, :body, :list_name, :todo_count, :status
 
-  
   before_validation :normalize_list_name
+  after_save :update_todo_counts
 
   def incomplete?
     self.status == 0
@@ -122,6 +122,13 @@ class Todo < ActiveRecord::Base
 
   def normalize_list_name
     self.list_name = self.list_name.parameterize
+  end
+
+  # updates own todo_count and siblings
+  # doesn't update todo_count in memory, need to refactor todo_count to be on a TodoList
+  def update_todo_counts
+    count = Todo.where(:list_name => self.list_name).count
+    Todo.where(:list_name => self.list_name).update_all(:todo_count => count)
   end
 
 end

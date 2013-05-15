@@ -14,14 +14,8 @@ class TodosController < ApplicationController
   end
 
   def create
-    list_name = params[:todo].fetch(:list_name)
     @todo = Todo.new params[:todo]
     if @todo.save
-      @todos = Todo.where :list_name => @todo.list_name
-      @todos.each do |todo|
-        todo.update_attributes :todo_count => @todos.count
-        todo.save
-      end
       redirect_to root_url
     else
       render :new
