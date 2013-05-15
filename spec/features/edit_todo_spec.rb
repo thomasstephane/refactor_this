@@ -2,7 +2,8 @@ require "spec_helper"
 
 describe "Edit a new todo" do
   it "should update the todo" do
-    todo = Todo.create :title => "my todo", :list_name => "a-test-list", :status => 0
+    list = TodoList.create :name => "a-test-list"
+    todo = list.todos.create :title => "my todo", :status => 0
     visit edit_todo_path(todo)
     fill_in "Title", :with => "buy milk"
     fill_in "List name", :with => "My Groceries"

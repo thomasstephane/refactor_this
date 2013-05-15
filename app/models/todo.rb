@@ -1,8 +1,7 @@
 class Todo < ActiveRecord::Base
-  attr_accessible :title, :body, :list_name, :todo_count, :status
-  belongs_to :todo_list
+  attr_accessible :title, :body, :todo_count, :status
+  belongs_to :todo_list, :counter_cache => :todo_count
 
-  before_validation :normalize_list_name
   after_save :update_todo_counts
 
   state_machine :state, :initial => :incomplete do
@@ -47,18 +46,4 @@ class Todo < ActiveRecord::Base
   scope :all_deleted, where("deleted_at NOT NULL")
   scope :all_postponed, where(:status => 5)
   scope :all_important, where(:important => true)
-
-  private
-
-  def normalize_list_name
-    self.list_name = self.list_name.parameterize
-  end
-
-  # updates own todo_count and siblings
-  # doesn't update todo_count in memory, need to refactor todo_count to be on a TodoList
-  def update_todo_counts
-    count = Todo.where(:list_name => self.list_name).count
-    Todo.where(:list_name => self.list_name).update_all(:todo_count => count)
-  end
-
 end
