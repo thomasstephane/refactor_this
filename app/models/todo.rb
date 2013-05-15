@@ -26,10 +26,6 @@ class Todo < ActiveRecord::Base
     !!self.deleted_at
   end
 
-  def important?
-    self.status == 6
-  end
-
   def moved!
     self.update_attributes :status => 3
   end
@@ -43,7 +39,7 @@ class Todo < ActiveRecord::Base
   end
 
   def important!
-    self.update_attributes :status => 6
+    self.update_attributes :important => true
   end
 
   class << self
@@ -60,7 +56,7 @@ class Todo < ActiveRecord::Base
     end
 
     def all_important
-      self.where :status => 6
+      self.where :important => true
     end
   end
 

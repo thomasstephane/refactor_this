@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515204451) do
+ActiveRecord::Schema.define(:version => 20130515204828) do
 
   create_table "todos", :force => true do |t|
     t.string   "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130515204451) do
     t.integer  "todo_count"
     t.string   "state"
     t.datetime "deleted_at"
+    t.boolean  "important"
   end
 
 end
