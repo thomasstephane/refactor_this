@@ -1,5 +1,6 @@
 class Todo < ActiveRecord::Base
   attr_accessible :title, :body, :list_name, :todo_count, :status
+  belongs_to :todo_list
 
   before_validation :normalize_list_name
   after_save :update_todo_counts
