@@ -28,13 +28,7 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find params[:id]
-    list_name = params[:todo].fetch(:list_name)
     if @todo.update_attributes params[:todo]
-      @todos = Todo.where :list_name => list_name
-      @todos.each do |todo|
-        todo.update_attributes :todo_count => @todos.count
-        todo.save
-      end
       redirect_to @todo
     else
       render :edit
