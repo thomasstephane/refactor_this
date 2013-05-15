@@ -18,12 +18,12 @@ class Todo < ActiveRecord::Base
     self.status == 3
   end
 
-  def deleted?
-    self.status == 4
-  end
-
   def postponed?
     self.status == 5
+  end
+
+  def deleted?
+    !!self.deleted_at
   end
 
   def important?
@@ -35,7 +35,7 @@ class Todo < ActiveRecord::Base
   end
 
   def deleted!
-    self.update_attributes :status => 4
+    self.update_attributes :deleted_at => Time.now
   end
 
   def postponed!
@@ -52,7 +52,7 @@ class Todo < ActiveRecord::Base
     end
 
     def all_deleted
-      self.where :status => 4
+      self.where("deleted_at NOT NULL")
     end
 
     def all_postponed
