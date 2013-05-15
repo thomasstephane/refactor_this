@@ -4,16 +4,14 @@ class Todo < ActiveRecord::Base
   before_validation :normalize_list_name
   after_save :update_todo_counts
 
-  def incomplete?
-    self.status == 0
-  end
+  state_machine :state, :initial => :incomplete do
+    event :in_progress do
+      transition all => :in_progress
+    end
 
-  def complete?
-    self.status == 1
-  end
-
-  def in_progress?
-    self.status == 2
+    event :complete do
+      transition all => :completed
+    end
   end
 
   def moved?
@@ -30,18 +28,6 @@ class Todo < ActiveRecord::Base
 
   def important?
     self.status == 6
-  end
-
-  def incomplete!
-    self.update_attributes :status => 0
-  end
-
-  def complete!
-    self.update_attributes :status => 1
-  end
-
-  def in_progress!
-    self.update_attributes :status => 2
   end
 
   def moved!
@@ -61,18 +47,6 @@ class Todo < ActiveRecord::Base
   end
 
   class << self
-    def all_incomplete
-      self.where :status => 0
-    end
-
-    def all_complete
-      self.where :status => 1
-    end
-
-    def all_in_progress
-      self.where :status => 2
-    end
-
     def all_moved
       self.where :status => 3
     end
