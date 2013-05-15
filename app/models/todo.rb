@@ -30,35 +30,22 @@ class Todo < ActiveRecord::Base
     self.update_attributes :status => 3
   end
 
-  def deleted!
-    self.update_attributes :deleted_at => Time.now
-  end
-
   def postponed!
     self.update_attributes :status => 5
+  end
+
+  def deleted!
+    self.update_attributes :deleted_at => Time.now
   end
 
   def important!
     self.update_attributes :important => true
   end
 
-  class << self
-    def all_moved
-      self.where :status => 3
-    end
-
-    def all_deleted
-      self.where("deleted_at NOT NULL")
-    end
-
-    def all_postponed
-      self.where :status => 5
-    end
-
-    def all_important
-      self.where :important => true
-    end
-  end
+  scope :all_moved, where(:status => 3)
+  scope :all_deleted, where("deleted_at NOT NULL")
+  scope :all_postponed, where(:status => 5)
+  scope :all_important, where(:important => true)
 
   private
 
