@@ -1,6 +1,10 @@
 class Todo < ActiveRecord::Base
   attr_accessible :title, :body, :list_name, :todo_count, :status
 
+  def self.grouped_by_list_names
+    self.all.group_by(&:list_name)
+  end
+
   def incomplete?
     self.status == 0
   end

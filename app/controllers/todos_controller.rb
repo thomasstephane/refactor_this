@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   before_filter :load_todos
 
   def index
-    @todos = Todo.all
+    @todos = Todo.grouped_by_list_names
   end
 
   def new
