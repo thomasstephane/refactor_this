@@ -1,6 +1,7 @@
 class Todo < ActiveRecord::Base
 
   attr_accessible :title, :body, :list_name, :todo_count, :status
+  before_save :downcase_list_name, :update_count
 
   STATUS = {
     :incomplete   => 0,
@@ -37,6 +38,16 @@ class Todo < ActiveRecord::Base
       end
     end
 
+  end
+
+  private 
+
+  def downcase_list_name
+    self.list_name = self.list_name.downcase.gsub ' ', '-'
+  end
+
+  def update_count
+    self.todo_count = Todo.where("list_name = ?", self.list_name).count
   end
 
 end
