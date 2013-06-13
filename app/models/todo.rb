@@ -27,8 +27,8 @@ class Todo < ActiveRecord::Base
       self.all.group_by(&:list_name)
     end
 
-    def method_missing(method, args)
-      if method.to_s =~ /all_(.+)$/ && status == STATUS[1$.to_sym]
+    def method_missing(method, *args)
+      if (method.to_s =~ /all_(.+)$/) && status == STATUS[$1.to_sym]
         self.where :status => status
       elsif method.to_s =~ /find_or_create_by_(.+)$/ && status == STATUS[$1.to_sym]
         self.create :status => status
@@ -36,7 +36,7 @@ class Todo < ActiveRecord::Base
         super
       end
     end
-    
+
   end
 
 end
